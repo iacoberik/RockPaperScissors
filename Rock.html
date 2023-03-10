@@ -30,10 +30,8 @@
         const again = document.querySelector('.again');
         //checking
         function playRound(){
-            
             const player = this.textContent;
             const computer = getComputerChoice();
-
             const playerRounde = `Player selected ${player} and computer ${computer}. Player wins!!!`;
             const computerRounde = `Player selected ${player} and computer ${computer}. Computer wins :(`
             if (round === 5) {
@@ -60,7 +58,7 @@
                 computerScore++;
                 console.log(computerScore);
             }
-            round++;
+            if(player !== computer) round++;
             console.log(round);
         }
         buttons.forEach( button => button.addEventListener('click', playRound));
