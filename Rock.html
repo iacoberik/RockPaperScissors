@@ -7,39 +7,63 @@
     <title>Document</title>
 </head>
 <body>
-
-    <button>Rock</button>
-    <button>Paper</button>
-    <button>Scissors</button>
+    <h2>Rock Paper Scissors</h2>
+    <h4>Rules are simple..</h4>
+    <p>Rock beats Scissors, Paper beats Rock and Scissors beats Paper...</p>
+    <p>Your selection will be compared with computer one.</p>
+    
+    <button class="choice">Rock</button>
+    <button class="choice">Paper</button>
+    <button class="choice">Scissors</button>
     <div class='result'></div>
+    <button class="again"style="display: none;"><a href="/Rock.html">Play Again</a></button>
 
     <script>
-
         const selections = ['Rock', 'Paper', 'Scissors'];
-
         let getComputerChoice = () => selections[Math.floor(Math.random() * selections.length)];
-        
+        let playerScore = 0;
+        let computerScore = 0;
+        let round = 0;
         //selecting all buttons;
-        const buttons = document.querySelectorAll('button');
+        const buttons = document.querySelectorAll('.choice');
         const result = document.querySelector('.result');
+        const again = document.querySelector('.again');
         //checking
-
         function playRound(){
+            
             const player = this.textContent;
             const computer = getComputerChoice();
-            console.log(computer);  
-            
+
+            const playerRounde = `Player selected ${player} and computer ${computer}. Player wins!!!`;
+            const computerRounde = `Player selected ${player} and computer ${computer}. Computer wins :(`
+            if (round === 5) {
+                buttons.forEach( button => button.disabled = true);
+                again.style.display = 'block';
+                if(playerScore > computerScore){
+                    return result.textContent = `GAME OVER! Player wins with #${playerScore} of ${computerScore}`;
+                }else {
+                    return result.textContent = `GAME OVER! Computer wins with #${computerScore} of ${playerScore}`;
+                }
+            }
             if ( player === computer) result.textContent = 'There is a draw...';
-            if ( player === 'Rock' && computer === 'Scissors') result.textContent = `Player selected ${player} and computer ${computer}. Player wins!!!`;
-            if ( player === 'Paper' && computer === 'Rock') result.textContent = `Player selected ${player} and computer ${computer}. Player wins!!!`;
-            if ( player === 'Scissors' && computer === 'Paper') result.textContent = `Player selected ${player} and computer ${computer}. Player wins!!!`;
-            if ( player === 'Paper' && computer === 'Scissors') result.textContent = `Player selected ${player} and computer ${computer}. Computer wins :(`;
-            if ( player === 'Rock' && computer === 'Paper') result.textContent = `Player selected ${player} and computer ${computer}. Computer wins :(`;
-            if ( player === 'Scissors' && computer === 'Rock') result.textContent = `Player selected ${player} and computer ${computer}. Computer wins :(`;
+            if ( player === 'Rock' && computer === 'Scissors') result.textContent = playerRounde;
+            if ( player === 'Paper' && computer === 'Rock') result.textContent = playerRounde;
+            if ( player === 'Scissors' && computer === 'Paper') result.textContent = playerRounde;
+            if ( player === 'Paper' && computer === 'Scissors') result.textContent = computerRounde;
+            if ( player === 'Rock' && computer === 'Paper') result.textContent = computerRounde;
+            if ( player === 'Scissors' && computer === 'Rock') result.textContent = computerRounde;
+
+            if ( result.textContent === playerRounde){
+                playerScore++;
+                console.log(playerScore);
+            }else if ( result.textContent === computerRounde){
+                computerScore++;
+                console.log(computerScore);
+            }
+            round++;
+            console.log(round);
         }
-
         buttons.forEach( button => button.addEventListener('click', playRound));
-
     </script>
 </body>
 </html>
